@@ -1,0 +1,1237 @@
+(function () {
+  'use strict';
+
+  function _typeof(obj) {
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof = function (obj) {
+        return typeof obj;
+      };
+    } else {
+      _typeof = function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
+    }
+
+    return _typeof(obj);
+  }
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+  }
+
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
+  }
+
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      if (enumerableOnly) symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+      keys.push.apply(keys, symbols);
+    }
+
+    return keys;
+  }
+
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
+
+      if (i % 2) {
+        ownKeys(source, true).forEach(function (key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+      } else {
+        ownKeys(source).forEach(function (key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
+      }
+    }
+
+    return target;
+  }
+
+  function _slicedToArray(arr, i) {
+    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+  }
+
+  function _arrayWithHoles(arr) {
+    if (Array.isArray(arr)) return arr;
+  }
+
+  function _iterableToArrayLimit(arr, i) {
+    if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+      return;
+    }
+
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _e = undefined;
+
+    try {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"] != null) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+
+    return _arr;
+  }
+
+  function _nonIterableRest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance");
+  }
+
+  var sizes = {
+    LARGE_MPU: {
+      dimensions: {
+        width: 336,
+        height: 280
+      }
+    },
+    DESKTOP_VIDEO: {
+      dimensions: {
+        width: 336,
+        height: 252
+      }
+    },
+    DESKTOP_MPU: {
+      dimensions: {
+        width: 300,
+        height: 250
+      }
+    },
+    FULL_BANNER: {
+      dimensions: {
+        width: 468,
+        height: 60
+      }
+    },
+    MOBILE_BANNER: {
+      dimensions: {
+        width: '100%',
+        height: 50
+      }
+    },
+    DEFAULT: {
+      dimensions: {
+        width: 0,
+        height: 0
+      }
+    }
+  };
+
+  var adUnitConfig = function adUnitConfig(id) {
+    if (id === 'quizPageCompliant') {
+      return sizes.LARGE_MPU;
+    }
+    if (id === 'quizPageNonCompliant') {
+      return sizes.LARGE_MPU;
+    }
+    if (id === 'mobileBannerQuizDetailPageCompliant') {
+      return sizes.MOBILE_BANNER;
+    }
+    if (id === 'mobileBannerQuizDetailPageNonCompliant') {
+      return sizes.MOBILE_BANNER;
+    }
+    if (id === 'summaryPageCompliant') {
+      return sizes.LARGE_MPU;
+    }
+    if (id === 'summaryPageNonCompliant') {
+      return sizes.LARGE_MPU;
+    }
+    if (id === 'summaryPageMPU2') {
+      return sizes.LARGE_MPU;
+    }
+    if (id === 'mobileBannerSummaryPageCompliant') {
+      return sizes.MOBILE_BANNER;
+    }
+    if (id === 'mobileBannerSummaryPageNonCompliant') {
+      return sizes.MOBILE_BANNER;
+    }
+    if (id === 'pauseScreenCompliant') {
+      return sizes.LARGE_MPU;
+    }
+    if (id === 'pauseScreenNonCompliant') {
+      return sizes.LARGE_MPU;
+    }
+    if (id === 'pauseScreenCompliantMPU2') {
+      return sizes.LARGE_MPU;
+    }
+    if (id === 'pauseScreenNonCompliantMPU2') {
+      return sizes.LARGE_MPU;
+    }
+    if (id === 'pauseScreenCompliantFullBanner') {
+      return sizes.FULL_BANNER;
+    }
+    if (id === 'pauseScreenNonCompliantFullBanner') {
+      return sizes.FULL_BANNER;
+    }
+    if (id === 'preGameScreen') {
+      return sizes.LARGE_MPU;
+    }
+    if (id === 'preGameScreenMPU2') {
+      return sizes.LARGE_MPU;
+    }
+    if (id === 'soloGameScreenCompliant') {
+      return sizes.LARGE_MPU;
+    }
+    if (id === 'soloGameScreenNonCompliant') {
+      return sizes.LARGE_MPU;
+    }
+    if (id === 'flashcardsMPU') {
+      return sizes.LARGE_MPU;
+    }
+    return null;
+  };
+
+  var adUnitConfig$1 = function adUnitConfig(id) {
+    var defaultConfig = _objectSpread2({
+      id: id,
+      tag: '/21739071650/SHEMEDIA_UNIT_1'
+    }, sizes.LARGE_MPU);
+    if (id === 'pauseScreenCompliantMPU2' || id === 'summaryPageMPU2') {
+      return {
+        id: id,
+        tag: '/21739071650/SHEMEDIA_UNIT_2'
+      };
+    }
+    if (['quizPageCompliant', 'summaryPageCompliant', 'soloGameScreenCompliant', 'preGameScreen', 'preGameScreenMPU2', 'pauseScreenCompliant'].includes(id)) {
+      return defaultConfig;
+    }
+    return null;
+  };
+
+  var adUnitConfig$2 = function adUnitConfig(id) {
+    var adXDimensions = [[300, 250], [125, 125], [180, 150], [234, 60], [250, 250], [336, 280], [200, 200], [320, 50], [300, 100]];
+    if (id === 'quizPageCompliant') {
+      return {
+        id: id,
+        adXDimensions: adXDimensions,
+        tag: '/21739071650/pubmatic_mpu_quiz_detail'
+      };
+    }
+    if (id === 'soloGameScreenCompliant') {
+      return {
+        id: id,
+        adXDimensions: adXDimensions,
+        tag: '/21739071650/pubmatic_mpu_solo_start'
+      };
+    }
+    if (id === 'flashcardsMPU') {
+      return {
+        id: id,
+        adXDimensions: adXDimensions,
+        tag: '/21739071650/pubmatic_mpu_flashcard'
+      };
+    }
+    if (id === 'preGameScreen') {
+      return {
+        id: id,
+        adXDimensions: adXDimensions,
+        tag: '/21739071650/pubmatic_mpu_recent_game'
+      };
+    }
+    if (id === 'summaryPageCompliant') {
+      return {
+        id: id,
+        adXDimensions: adXDimensions,
+        tag: '/21739071650/pubmatic_mpu_summary'
+      };
+    }
+    if (id === 'pauseScreenCompliantMPU2') {
+      return {
+        id: id,
+        adXDimensions: adXDimensions,
+        tag: '/21739071650/pubmatic_mpu_pause_2'
+      };
+    }
+    if (id === 'pauseScreenCompliant') {
+      return {
+        id: id,
+        adXDimensions: adXDimensions,
+        tag: '/21739071650/pubmatic_mpu_pause_1'
+      };
+    }
+    return null;
+  };
+
+  var adUnitConfig$3 = function adUnitConfig(id) {
+    var tag = new window.AwesomeDisplay(40353);
+    if (id === 'quizPageCompliant') {
+      return Object.assign({
+        tag: tag
+      }, sizes.DESKTOP_MPU);
+    }
+    if (id === 'quizPageNonCompliant') {
+      return Object.assign({
+        tag: tag
+      }, sizes.DESKTOP_MPU);
+    }
+    if (id === 'mobileBannerQuizDetailPageCompliant') {
+      return Object.assign({
+        tag: tag
+      }, sizes.MOBILE_BANNER);
+    }
+    if (id === 'mobileBannerQuizDetailPageNonCompliant') {
+      return Object.assign({
+        tag: tag
+      }, sizes.MOBILE_BANNER);
+    }
+    if (id === 'summaryPageCompliant') {
+      return Object.assign({
+        tag: tag
+      }, sizes.DESKTOP_MPU);
+    }
+    if (id === 'summaryPageNonCompliant') {
+      return Object.assign({
+        tag: tag
+      }, sizes.DESKTOP_MPU);
+    }
+    if (id === 'mobileBannerSummaryPageCompliant') {
+      return Object.assign({
+        tag: tag
+      }, sizes.MOBILE_BANNER);
+    }
+    if (id === 'mobileBannerSummaryPageNonCompliant') {
+      return Object.assign({
+        tag: tag
+      }, sizes.MOBILE_BANNER);
+    }
+    if (id === 'pauseScreenCompliant') {
+      return Object.assign({
+        tag: tag
+      }, sizes.DESKTOP_MPU);
+    }
+    if (id === 'pauseScreenNonCompliant') {
+      return Object.assign({
+        tag: tag
+      }, sizes.DESKTOP_MPU);
+    }
+    if (id === 'pauseScreenCompliantMPU2') {
+      return Object.assign({
+        tag: tag
+      }, sizes.DESKTOP_MPU);
+    }
+    if (id === 'pauseScreenNonCompliantMPU2') {
+      return Object.assign({
+        tag: tag
+      }, sizes.DESKTOP_MPU);
+    }
+    if (id === 'pauseScreenCompliantFullBanner') {
+      return Object.assign({
+        tag: tag
+      }, sizes.FULL_BANNER);
+    }
+    if (id === 'pauseScreenNonCompliantFullBanner') {
+      return Object.assign({
+        tag: tag
+      }, sizes.FULL_BANNER);
+    }
+    if (id === 'preGameScreen') {
+      return Object.assign({
+        tag: tag
+      }, sizes.DESKTOP_MPU);
+    }
+    if (id === 'soloGameScreenCompliant') {
+      return Object.assign({
+        tag: tag
+      }, sizes.DESKTOP_MPU);
+    }
+    if (id === 'soloGameScreenNonCompliant') {
+      return Object.assign({
+        tag: tag
+      }, sizes.DESKTOP_MPU);
+    }
+    if (id === 'flashcardsMPU') {
+      return Object.assign({
+        tag: tag
+      }, sizes.DESKTOP_MPU);
+    }
+    return null;
+  };
+
+  var adUnitConfig$4 = function adUnitConfig(id) {
+    if (id === 'pauseScreenCompliantMPU2NonCompliant') {
+      return {
+        name: 'VENATUS',
+        tag: '<div class="vm-placement" data-id="5d3820536ab8da237ffd4ca1"></div>',
+        dimensions: sizes.LARGE_MPU.dimensions,
+        id: 'pauseScreenCompliantMPU2NonCompliant'
+      };
+    }
+    if (id === 'pauseScreenFullBannerCompliant') {
+      return {
+        name: 'VENATUS',
+        tag: '<div class="vm-placement" data-id="5d382067be33895dfa63cb64"></div>',
+        dimensions: {
+          height: 60,
+          width: 468
+        },
+        id: 'pauseScreenFullBannerCompliant'
+      };
+    }
+    if (id === 'quizPageCompliant') {
+      return {
+        name: 'VENATUS',
+        tag: '<div class="vm-placement" data-id="5ce2b33752b25d29be3fe65b"></div>',
+        dimensions: sizes.LARGE_MPU.dimensions,
+        id: 'quizPageCompliant'
+      };
+    }
+    if (id === 'summaryPageCompliant') {
+      return {
+        name: 'VENATUS',
+        tag: '<div class="vm-placement" data-id="5d42bfec94fc8910b6354c2e"></div>',
+        dimensions: sizes.LARGE_MPU.dimensions,
+        id: 'summaryPageCompliant'
+      };
+    }
+    if (id === 'pauseScreenCompliant') {
+      return {
+        name: 'VENATUS',
+        tag: '<div class="vm-placement" data-id="5d42bff6be33895dfa63ce2e"></div>',
+        dimensions: sizes.LARGE_MPU.dimensions,
+        id: 'pauseScreenCompliant'
+      };
+    }
+    if (id === 'soloGameScreenCompliant') {
+      return {
+        name: 'VENATUS',
+        tag: '<div class="vm-placement" data-id="5d42c0019ad51d436ff8d7da"></div>',
+        dimensions: sizes.LARGE_MPU.dimensions,
+        id: 'soloGameScreenCompliant'
+      };
+    }
+    if (id === 'flashcardsMPU') {
+      return {
+        name: 'VENATUS',
+        tag: '<div class="vm-placement" data-id="5d42c0019ad51d436ff8d7da"></div>',
+        dimensions: sizes.LARGE_MPU.dimensions,
+        id: 'flashcardsMPU'
+      };
+    }
+    return {};
+  };
+
+  var adUnitConfig$5 = function adUnitConfig(id) {
+    var defaultConfig = _objectSpread2({
+      id: id
+    }, sizes.LARGE_MPU);
+    if (['quizPageCompliant', 'summaryPageCompliant', 'summaryPageMPU2', 'soloGameScreenCompliant', 'preGameScreen', 'preGameScreenMPU2', 'pauseScreenCompliant', 'pauseScreenCompliantMPU2'].includes(id)) {
+      return defaultConfig;
+    }
+    return null;
+  };
+
+  var adUnitConfigRepository = function adUnitConfigRepository(delivery) {
+    switch (delivery) {
+      case 'pubgenius':
+        return adUnitConfig;
+      case 'shemedia':
+        return adUnitConfig$1;
+      case 'pubmatic':
+        return adUnitConfig$2;
+      case 'venatusIframe':
+        return adUnitConfig$4;
+      case 'sa':
+        return adUnitConfig$3;
+      case 'avantis':
+        return adUnitConfig$5;
+      default:
+        return function () {
+          console.info('Missing config!');
+        };
+    }
+  };
+
+  var _noAds = {
+    load: function load() {},
+    showAds: function showAds() {},
+    reportAd: function reportAd() {},
+    delivery: 'noAds',
+    adUnitConfig: function adUnitConfig() {},
+    startAdRefresh: function startAdRefresh() {}
+  };
+
+  function handleConditionalExperiment(args) {
+    var _ref = window.quizbiz.conditionalExperiment || {},
+        expName = _ref.expName,
+        expCondition = _ref.expCondition,
+        expAction = _ref.expAction;
+    try {
+      if (args.delivery !== 'noAds' && typeof expName === 'string' && expName !== args.delivery && typeof expCondition === 'function' && expCondition(args)) {
+        return expAction(args);
+      }
+    } catch (e) {
+      window.quizbiz.failed.push("Conditional Experiment ".concat(expName, " failed: ").concat(e));
+    }
+    return {};
+  }
+  function showAdsInit(showAds, delivery, _adUnitConfig) {
+    return function (page, type) {
+      if (!delivery) {
+        window.quizbiz.failed.push('[CONTROL]: Invalid - no delivery set');
+        return sizes.DEFAULT;
+      }
+      var adUnitConfig = _adUnitConfig || adUnitConfigRepository(delivery);
+      var compliance = window.quizbiz.compliance ? 'Compliant' : 'NonCompliant';
+      var id = '';
+      if (page === 'pauseScreenCompliantMPU2' || page === 'pauseScreenCompliantFullBanner' || page === 'preGameScreen' || page === 'flashcardsMPU' || page === 'summaryPageMPU2' || page === 'preGameScreenMPU2') {
+        id = page;
+      } else {
+        id = "".concat(page).concat(compliance);
+      }
+      for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+        args[_key - 2] = arguments[_key];
+      }
+      var conditionalStatus = handleConditionalExperiment(_objectSpread2({
+        page: page,
+        type: type,
+        delivery: delivery,
+        actionType: 'showAds'
+      }, args));
+      if (Object.keys(conditionalStatus).length !== 0 && conditionalStatus.constructor === Object) {
+        window.quizbiz.qlog("Conditional experiment returned with status ".concat(JSON.stringify(conditionalStatus)));
+        return conditionalStatus;
+      }
+      var adUnit = adUnitConfig(id);
+      try {
+        if (!adUnit) {
+          window.quizbiz.failed.push('Invalid unit');
+          throw new Error("Invalid adUnit ".concat(adUnit.id));
+        }
+        return showAds(_objectSpread2({
+          compliance: compliance,
+          delivery: delivery,
+          page: page,
+          type: type,
+          id: id
+        }, adUnit, {}, args));
+      } catch (err) {
+        window.quizbiz.failed.push((err || '<unknown_err>').toString());
+      }
+      if (window.quizbiz.failed.length !== 0) {
+        return {
+          analytics: {
+            id: "err:".concat(id),
+            delivery: "err:".concat(delivery),
+            type: type,
+            exp: window.quizbiz.exp,
+            errmsg: window.quizbiz.failed.join(', '),
+            version: window.quizbiz.version
+          },
+          dimensions: sizes.DEFAULT.dimensions
+        };
+      }
+      return sizes.DEFAULT;
+    };
+  }
+  function reportAdInit() {
+    var reportAd = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
+    var delivery = arguments.length > 1 ? arguments[1] : undefined;
+    return function () {
+      try {
+        var reportAdDetails = null;
+        for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          args[_key2] = arguments[_key2];
+        }
+        var conditionalStatus = handleConditionalExperiment(_objectSpread2({
+          delivery: delivery,
+          actionType: 'reportAd'
+        }, args));
+        if (Object.keys(conditionalStatus).length !== 0 && conditionalStatus.constructor === Object) {
+          reportAdDetails = conditionalStatus;
+        } else if (typeof reportAd === 'function') {
+          reportAdDetails = reportAd.apply(void 0, args);
+        }
+        var pres = new Date();
+        pres.setHours(pres.getHours() + 48);
+        window.document.cookie = "no_ads=true;path=/;expires=".concat(pres.toUTCString());
+        expInit(_noAds);
+        setTimeout(function setNoAds() {
+          window.quizbiz.exp = 'noAds';
+        }, 5000);
+        return reportAdDetails;
+      } catch (e) {
+        window.quizbiz.failed.push(e);
+        return {};
+      }
+    };
+  }
+  function expInit(_ref2) {
+    var load = _ref2.load,
+        showAds = _ref2.showAds,
+        reportAd = _ref2.reportAd,
+        adUnitConfig = _ref2.adUnitConfig,
+        delivery = _ref2.delivery,
+        startAdRefresh = _ref2.startAdRefresh,
+        setGameLevelExperiment = _ref2.setGameLevelExperiment,
+        destroy = _ref2.destroy;
+    load();
+    window.quizbiz.showAds = showAdsInit(showAds, delivery, adUnitConfig);
+    window.quizbiz.reportAd = reportAdInit(reportAd, delivery);
+    window.quizbiz.delivery = delivery;
+    window.quizbiz.startAdRefresh = startAdRefresh;
+    window.quizbiz.setGameLevelExperiment = setGameLevelExperiment || function () {};
+    window.quizbiz.destroy = destroy;
+  }
+
+  var slot0 = {};
+  var slot1 = {};
+  var slot2 = {};
+  var slot3 = {};
+  var slot4 = {};
+  var slot5 = {};
+  var slot6 = {};
+  var slot7 = {};
+  var slot8 = {};
+  var slot9 = {};
+  var config = {
+    env: 'prod',
+    active: ['noAds', 'pubgenius'],
+    defaultExp: 'noAds',
+    0: {
+      exp: 'pubgenius',
+      internals: slot0
+    },
+    1: {
+      exp: 'pubgenius',
+      internals: slot1
+    },
+    2: {
+      exp: 'pubgenius',
+      internals: slot2
+    },
+    3: {
+      exp: 'pubgenius',
+      internals: slot3
+    },
+    4: {
+      exp: 'pubgenius',
+      internals: slot4
+    },
+    5: {
+      exp: 'pubgenius',
+      internals: slot5
+    },
+    6: {
+      exp: 'pubgenius',
+      internals: slot6
+    },
+    7: {
+      exp: 'pubgenius',
+      internals: slot7
+    },
+    8: {
+      exp: 'pubgenius',
+      internals: slot8
+    },
+    9: {
+      exp: 'pubgenius',
+      internals: slot9
+    }
+  };
+
+  function defaultLoadCallback() {
+    window.quizbiz.loaded = true;
+    window.quizbiz.qlog('Quizbiz loaded; running final callback.');
+    window.quizbiz.qlog('Executing all elements in ', (window.quizbiz.cmd || {}).cmd);
+    window.quizbiz.loadTime = new Date().toString();
+    window.quizbiz.cmd.run();
+  }
+  function createCallBackWrapper(cb, runDefault) {
+    return function () {
+      cb();
+      if (runDefault) {
+        defaultLoadCallback();
+      }
+    };
+  }
+  function loadScript(items) {
+    var cb = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var runDefault = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+    var urls = [];
+    if (Array.isArray(items)) {
+      urls = items;
+    } else if (items) {
+      urls = [items];
+    }
+    var callback = cb ? createCallBackWrapper(cb, runDefault) : defaultLoadCallback;
+    if (urls.length === 0) {
+      setTimeout(function () {
+        callback();
+      }, 300);
+      return;
+    }
+    var remaining = urls.length;
+    var done = {
+      remaining: remaining
+    };
+    function getCb(ddone) {
+      return function () {
+        ddone.remaining -= 1;
+        if (done.remaining === 0) {
+          callback();
+        }
+      };
+    }
+    if (remaining === 0) {
+      callback();
+      return;
+    }
+    urls.forEach(function (url) {
+      var script = window.document.createElement('script');
+      script.src = url;
+      script.async = 'async';
+      script.id = 'ad-ext-script';
+      window.document.head.appendChild(script);
+      script.onload = getCb(done);
+    });
+  }
+  function analytics(adUnit) {
+    return {
+      analytics: {
+        id: adUnit.id,
+        type: adUnit.type,
+        delivery: adUnit.delivery,
+        exp: window.quizbiz.exp,
+        version: window.quizbiz.version,
+        gexp: window.quizbiz.gexp,
+        requestCountry: window.requestCountry || 'N/A'
+      },
+      dimensions: adUnit.dimensions
+    };
+  }
+  var defaultExp = config.defaultExp ;
+
+  function load() {
+    window.pubg = window.pubg || {};
+    window.pubg.queue = window.pubg.queue || [];
+    function handlePubGeniusCallback() {
+      window.googletag = window.googletag || {};
+      window.googletag.cmd = window.googletag.cmd || [];
+      if (window.quizbiz.qexp === 'pauseBan_exp' || window.quizbiz.qexp === 'pauseDouble_exp') {
+        var _window$quizbiz$qexp$ = window.quizbiz.qexp.split('_'),
+            _window$quizbiz$qexp$2 = _slicedToArray(_window$quizbiz$qexp$, 1),
+            qexpName = _window$quizbiz$qexp$2[0];
+        window.googletag.cmd.push(function () {
+          window.googletag.pubads().setTargeting('quizizz_experiment', [qexpName]);
+        });
+      }
+      window.quizbiz.qlog('Pushing functions to pubgenius queue');
+      window.pubg.queue.push(defaultLoadCallback);
+      window.quizbiz.cmd.run(function (_func) {
+        window.pubg.queue.push(_func);
+      });
+    }
+    window.quizbiz.cmd.setProcessFunction(function (_func) {
+      window.pubg = window.pubg || {};
+      window.pubg.queue = window.pubg.queue || [];
+      window.pubg.queue.push(_func);
+    });
+    if (window.quizbiz.compliance) {
+      loadScript('//delivery.pubgenius.io/quizizz-WwdtJzD0.js', handlePubGeniusCallback, false);
+    } else {
+      loadScript('//delivery.pubgenius.io/quizizz-3BhiSeUs.js', handlePubGeniusCallback, false);
+    }
+  }
+
+  function showAds(adUnit) {
+    window.pubg = window.pubg || {
+      queue: []
+    };
+    window.pubg.queue.push(function () {
+      window.googletag = window.googletag || {};
+      window.googletag.cmd = window.googletag.cmd || [];
+      if (window.quizbiz.gexp && window.quizbiz.gexp === 'pgsGC_exp') {
+        window.googletag.cmd.push(function () {
+          window.googletag.pubads().setTargeting('quizizz_experiment', ['pgsGC']);
+        });
+      } else if (window.quizbiz.gexp && window.quizbiz.gexp === 'summary2MPU_exp') {
+        window.googletag.cmd.push(function () {
+          window.googletag.pubads().setTargeting('quizizz_experiment', ['summary2MPU']);
+        });
+      }
+      if (adUnit.id === 'pauseScreenCompliant' && (window.quizbiz.qexp === 'pauseBan_exp' || window.quizbiz.qexp === 'pauseDouble_exp')) {
+        window.insertAd(window.document.getElementById('pauseScreenCompliant'), 'testMPU');
+      } else if (adUnit.id === 'preGameScreenMPU2') {
+        window.insertAd(window.document.getElementById('preGameScreenMPU2'), 'flashcardsMPU');
+      } else if (adUnit.id === 'quizPageCompliant') {
+        window.insertAd(window.document.getElementById('quizPageCompliant'), 'pregameScreenMPU2');
+      } else {
+        window.initAdUnit(adUnit.id);
+      }
+    });
+    return analytics(adUnit);
+  }
+
+  function reportAd() {
+    var reportData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    try {
+      var reportText = reportData.reportText,
+          reportReason = reportData.reportReason,
+          reasonText = reportData.reasonText,
+          guid = reportData.guid,
+          _reportData$adUnitId = reportData.adUnitId,
+          adUnitId = _reportData$adUnitId === void 0 ? 'temp' : _reportData$adUnitId;
+      if (!guid) {
+        window.quizbiz.qlog('Missing error');
+        window.quizbiz.failed.push('[reportAd] Missing guid');
+        return {
+          error: true
+        };
+      }
+      var adDetails = window.pubg.sendReport(adUnitId, {
+        reason: window.quizbiz.env === 'dev' ? 'TEST' : reportText,
+        message: window.quizbiz.env === 'dev' ? 'TEST' : "".concat(reportReason, " ").concat(reasonText),
+        sharedGuid: guid
+      }, function () {});
+      return {
+        adDetails: adDetails
+      } || {};
+    } catch (err) {
+      window.quizbiz.failed.push(err);
+      return {
+        error: true
+      };
+    }
+  }
+
+  function startAdRefresh(adUnit) {
+    var adRefreshInterval = setInterval(function () {
+      var adContainer = window.document.querySelector("#".concat(adUnit));
+      if (!adContainer || window.quizbiz.hasAdvertBeenRemoved) {
+        clearInterval(adRefreshInterval);
+      }
+      while (adContainer && adContainer.firstChild) {
+        adContainer.removeChild(adContainer.firstChild);
+      }
+      window.pubg.queue.push(function () {
+        window.initAdUnit(adUnit);
+        window.quizbiz.sendEvent({
+          isRefreshEvent: true
+        });
+      });
+    }, 20000);
+  }
+
+  function setGameLevelExperiment(experimentName) {
+    window.quizbiz.gexp = experimentName;
+  }
+
+  var _pubgenius = {
+    load: load,
+    showAds: showAds,
+    reportAd: reportAd,
+    adUnitConfig: adUnitConfig,
+    delivery: 'pubgenius',
+    startAdRefresh: startAdRefresh,
+    setGameLevelExperiment: setGameLevelExperiment
+  };
+
+  var experiments = {
+    noAds: function noAds() {
+      return expInit(_noAds);
+    },
+    pubgenius: function pubgenius() {
+      return expInit(_pubgenius);
+    }
+  };
+
+  var Queue =
+  function () {
+    function Queue(cmd) {
+      var typeOf = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'function';
+      _classCallCheck(this, Queue);
+      if (typeof typeOf !== 'string') {
+        window.quizbiz.failed.push('[QUEUE] Incorrect typeof provided, falling back to function');
+        this.typeOf = 'function';
+      } else {
+        this.typeOf = typeOf;
+      }
+      this.finished = [];
+      this.cmd = (cmd || []).filter(this.validate.bind(this));
+      this.defaultProcessFunction = function (queuedFunction) {
+        if (typeof queuedFunction === 'function') {
+          queuedFunction();
+        } else {
+          window.quizbiz.failed.push("Queued function ".concat(queuedFunction, " is invalid"));
+        }
+      };
+    }
+    _createClass(Queue, [{
+      key: "validate",
+      value: function validate(_f) {
+        if (_typeof(_f) !== this.typeOf) {
+          window.quizbiz.failed.push("Argument ".concat(_f, " not a ").concat(this.typeOf, " but of ").concat(_typeof(_f), " type"));
+          return false;
+        }
+        return true;
+      }
+    }, {
+      key: "setProcessFunction",
+      value: function setProcessFunction(processFunction) {
+        window.quizbiz.qlog('Setting processFunction => ', processFunction);
+        this.defaultProcessFunction = processFunction || this.defaultProcessFunction;
+      }
+    }, {
+      key: "run",
+      value: function run(processFunction) {
+        if (window.quizbiz.loaded) {
+          while (this.cmd.length !== 0) {
+            var f = this.cmd.shift();
+            (processFunction || this.defaultProcessFunction || function (_func) {
+              return _func();
+            })(f);
+            this.finished.push(f);
+          }
+        }
+      }
+    }, {
+      key: "push",
+      value: function push(f) {
+        if (window.quizbiz.disable === true) return;
+        if (!this.validate(f)) return;
+        if (window.quizbiz.loaded) {
+          this.cmd.push(f);
+          this.run();
+        } else {
+          this.cmd.push(f);
+        }
+      }
+    }]);
+    return Queue;
+  }();
+
+  function setConditionalExperiment() {
+    try {
+      var isProd = window.quizbiz.env === 'prod';
+      var isNoOverride = !window.quizbiz.override;
+      var slot = window.quizbiz.slot || 0;
+      var isSchoolHours = window.quizbiz.schoolHours;
+    } catch (e) {
+      window.quizbiz.qlog('[CONDITION-EXP] Missing values', e);
+      window.quizbiz.failed.push(e);
+      return false;
+    }
+    return true;
+  }
+
+  function setOverride(override) {
+    if (override === 'clear') {
+      window.quizbiz.qlog('Clearing override');
+      var d = new Date();
+      d.setDate(d.getDate() - 1);
+      window.document.cookie = "override=;expires=".concat(d.toString());
+      window.location.reload();
+    } else {
+      window.document.cookie = "override=".concat(override, ";path=/");
+      window.location.reload();
+    }
+  }
+
+  function stringify(elem) {
+    if (!elem) {
+      return JSON.stringify(elem);
+    }
+    if (_typeof(elem) === 'object' && !Array.isArray(elem)) {
+      return JSON.stringify(Object.keys(elem).reduce(function (_obj, key) {
+        return Object.assign(_obj, _defineProperty({}, key, stringify(elem[key])));
+      }, {}));
+    }
+    if (Array.isArray(elem)) {
+      return JSON.stringify(elem.map(stringify));
+    }
+    if (elem.toString) {
+      return elem.toString();
+    }
+    return JSON.stringify(elem);
+  }
+  function log() {
+    if (window.quizbiz.env === 'dev') {
+      for (var _len = arguments.length, str = new Array(_len), _key = 0; _key < _len; _key++) {
+        str[_key] = arguments[_key];
+      }
+      console.info("%cQUIZBIZ%c ".concat(str.map(stringify).join(' ')), 'font-size:10px; background: #8854C0; color: white; padding: 3px; border-radius: 4px;', '');
+    }
+  }
+
+  function getDeviceType() {
+    if (window.quizbiz.side === 'join') {
+      if (window.innerWidth > 768) {
+        return 'desktop';
+      }
+      if (window.innerWidth > 575) {
+        return 'tablet';
+      }
+      return 'mobile';
+    }
+    if (window.innerWidth >= 992) {
+      return 'desktop';
+    }
+    if (window.innerWidth >= 576) {
+      return 'tablet';
+    }
+    return 'mobile';
+  }
+  var media = {
+    getDeviceType: getDeviceType
+  };
+
+  function request(_ref) {
+    var _ref$method = _ref.method,
+        method = _ref$method === void 0 ? '' : _ref$method,
+        _ref$url = _ref.url,
+        url = _ref$url === void 0 ? '' : _ref$url,
+        _ref$cred = _ref.cred,
+        cred = _ref$cred === void 0 ? {} : _ref$cred,
+        _ref$headers = _ref.headers,
+        headers = _ref$headers === void 0 ? {} : _ref$headers,
+        _ref$cb = _ref.cb,
+        cb = _ref$cb === void 0 ? function () {} : _ref$cb,
+        _ref$data = _ref.data,
+        data = _ref$data === void 0 ? null : _ref$data,
+        _ref$withCredentials = _ref.withCredentials,
+        withCredentials = _ref$withCredentials === void 0 ? false : _ref$withCredentials;
+    try {
+      var allowedMethods = ['GET',
+      'POST',
+      'PUT',
+      'DELETE',
+      'HEAD',
+      'CONNECT',
+      'OPTIONS',
+      'TRACE',
+      'PATCH'
+      ];
+      if (allowedMethods.indexOf(method) === -1 || url.indexOf('https') === -1) {
+        cb("Invalid url or method ".concat(method, " ").concat(url));
+      }
+      var xhttp = new XMLHttpRequest();
+      xhttp.open(method, url, true, cred.user, cred.password);
+      Object.keys(headers).forEach(function (key) {
+        xhttp.setRequestHeader(key, headers[key]);
+      });
+      if (withCredentials) {
+        xhttp.withCredentials = withCredentials;
+      }
+      window.quizbiz.qlog('Requesting ', url);
+      xhttp.onreadystatechange = function () {
+        if (xhttp.readyState === 4) {
+          cb(null, {
+            xhttp: xhttp
+          });
+        }
+      };
+      xhttp.onerror = function (value) {
+        return cb(value);
+      };
+      var jsonData = JSON.stringify(data);
+      xhttp.send(jsonData);
+    } catch (err) {
+      window.quizbiz.qlog('Error while requesting ', err);
+    }
+  }
+  function eventDefaultCallback(eventErr) {
+    var p = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    try {
+      if (eventErr) {
+        window.quizbiz.qlog("Failed to push event ".concat(eventErr, "."));
+        return;
+      }
+      if (_typeof(p.xhttp) === 'object' && p.xhttp.status === 200 && p.xhttp.readyState === 4) {
+        window.quizbiz.qlog("Event pushed ".concat(p.xhttp.responseText, "."));
+      } else {
+        window.quizbiz.qlog('Failed to push event.');
+      }
+    } catch (err) {
+      window.quizbiz.qlog('Error in request event default callback', err);
+    }
+  }
+  function sendEvent(params) {
+    try {
+      var metaData = {};
+      if (localStorage && (typeof localStorage === "undefined" ? "undefined" : _typeof(localStorage)) === 'object' && typeof localStorage.getItem === 'function') {
+        metaData = JSON.parse(localStorage.getItem('QuizizzAnalytics')) || {};
+      }
+      var postData = {
+        time: Date.now(),
+        platform: 'web',
+        eventName: 'SponsAttempted',
+        experiment: window.quizbiz.qexp,
+        slot: window.quizbiz.slot,
+        timezoneOffset: new Date().getTimezoneOffset(),
+        localTime: new Date(),
+        params: Object.assign({}, {
+          sessionId: metaData.sessionId,
+          userId: window.user.id,
+          eventCount: metaData.eventCount ? metaData.eventCount + 1 : undefined,
+          delivery: window.quizbiz.exp,
+          media: media.getDeviceType()
+        }, params)
+      };
+      var eventServer = window.quizbiz.env === 'prod' ? 'https://analytics.quizizz.com/events' : 'http://dev-analytics-733896328.us-east-1.elb.amazonaws.com/events';
+      request({
+        method: 'POST',
+        url: eventServer,
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        data: postData,
+        cb: eventDefaultCallback
+      });
+    } catch (err) {
+      window.quizbiz.qlog('Event log failed', err);
+    }
+  }
+
+  function init() {
+    window.quizbiz = window.quizbiz || {};
+    window.quizbiz.version = '2/10/2020, 10:35:25 AM::master::ea04803';
+    window.quizbiz.cmd = new Queue(window.quizbiz.cmd || []);
+    window.quizbiz.failed = [];
+    window.quizbiz.loaded = false;
+    window.quizbiz.compliance = true;
+    window.quizbiz.env = config.env;
+    window.quizbiz.reroute = null;
+    window.quizbiz.setOverride = setOverride;
+    window.quizbiz.debug = {};
+    window.quizbiz.qlog = log;
+    window.quizbiz.request = request;
+    window.quizbiz.sendEvent = sendEvent;
+    if ((window.location.href || '').indexOf('quizizz.com/admin') !== -1) {
+      window.quizbiz.side = 'admin';
+    }
+    if ((window.location.href || '').indexOf('quizizz.com/join') !== -1) {
+      window.quizbiz.side = 'join';
+    }
+    var hourTime = new Date().getHours();
+    window.quizbiz.schoolHours = hourTime >= 8 && hourTime <= 15;
+    var cookies = window.document.cookie.split(';');
+    var length = cookies.length;
+    for (var i = 0; i < length; i += 1) {
+      if (cookies[i].indexOf('override') !== -1) {
+        var _cookies$i$split = cookies[i].split('=');
+        var _cookies$i$split2 = _slicedToArray(_cookies$i$split, 2);
+        window.quizbiz.override = _cookies$i$split2[1];
+      }
+      if (cookies[i].indexOf('QUIZIZZ_EXP_SLOT') !== -1) {
+        window.quizbiz.slot = parseInt(cookies[i].split('=')[1], 10);
+      }
+      if (cookies[i].indexOf('QUIZIZZ_EXP_NAME') !== -1) {
+        var _cookies$i$split3 = cookies[i].split('=');
+        var _cookies$i$split4 = _slicedToArray(_cookies$i$split3, 2);
+        window.quizbiz.qexp = _cookies$i$split4[1];
+      }
+      if (cookies[i].indexOf('QUIZIZZ_SPONS_SLOT') !== -1) {
+        window.quizbiz.ssOld = parseInt(cookies[i].split('=')[1], 10);
+      }
+      if (cookies[i].indexOf('QUIZIZZ_SPONS_SLOT2') !== -1) {
+        window.quizbiz.ss = parseInt(cookies[i].split('=')[1], 10);
+      }
+      if (cookies[i].indexOf('no_ads') !== -1) {
+        window.quizbiz.override = 'noAds';
+      }
+    }
+    if (typeof window.quizbiz.slot === 'undefined' || window.quizbiz.slot > 9) {
+      window.quizbiz.failed.push('err:Cookie not found');
+      window.quizbiz.override = defaultExp;
+    }
+    var pres = new Date();
+    if (window.quizbiz.ssOld) {
+      var oldDate = new Date();
+      oldDate.setHours(pres.getHours() - 24);
+      window.document.cookie = "QUIZIZZ_SPONS_SLOT=".concat(0, ";path=/;expires=", oldDate.toUTCString());
+    }
+    if (!window.quizbiz.override && (typeof window.quizbiz.ss === 'undefined' || window.quizbiz.ss < -1 || window.quizbiz.ss > 9)) {
+      var r = Math.floor(Math.random() * 10);
+      var expireIn = new Date();
+      expireIn.setFullYear(expireIn.getFullYear() + 1);
+      window.document.cookie = "QUIZIZZ_SPONS_SLOT2=".concat(r, ";path=/;expires=").concat(expireIn.toUTCString());
+      window.quizbiz.ss = r;
+    }
+    setConditionalExperiment();
+    if (window.quizbiz.override && window.quizbiz.override !== 'none') {
+      var overrideExp = window.quizbiz.override;
+      try {
+        window.quizbiz.reroute = overrideExp;
+        window.quizbiz.exp = overrideExp;
+        experiments[overrideExp]();
+      } catch (e) {
+        window.quizbiz.failed.push("err:Override experiment failed ".concat(overrideExp, " ").concat(e));
+        window.quizbiz.reroute = defaultExp;
+        window.quizbiz.exp = "default:".concat(defaultExp, ":").concat(overrideExp);
+        experiments[defaultExp]();
+      }
+    } else {
+      var _window$quizbiz = window.quizbiz,
+          slot = _window$quizbiz.slot,
+          ss = _window$quizbiz.ss;
+      var slotConfig = config[slot];
+      window.quizbiz.slotConfig = slotConfig;
+      var ssConfig = slotConfig.internals[ss];
+      window.quizbiz.ssConfig = ssConfig;
+      var _ref = ssConfig || slotConfig,
+          exp = _ref.exp;
+      window.quizbiz.exp = exp;
+      try {
+        experiments[exp]();
+      } catch (e) {
+        window.quizbiz.failed.push("err:Experiment failed ".concat(exp, " ").concat(e));
+        window.quizbiz.reroute = defaultExp;
+        window.quizbiz.exp = "default:".concat(defaultExp, ":").concat(exp);
+        experiments[defaultExp]();
+      }
+    }
+  }
+  init();
+
+}());
